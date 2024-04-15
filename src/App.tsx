@@ -1,4 +1,5 @@
 import './App.css';
+import * as React from 'react';
 import HeaderComponent from './Components/HeaderComponent';
 import {Provider} from "react-redux";
 import {Outlet} from "react-router-dom";

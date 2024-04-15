@@ -1,3 +1,5 @@
+import * as React from 'react';
+import { RootState } from '../Store';
 import searchIcon from "../public/54481.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -15,14 +17,14 @@ import closeImg from "../public/close.png";
 import ytLogo from "../public/yt-logo.png";
 
 const HeaderComponent = () => {
-    const [search, setSearch] = useState("");
-    const [suggestionList, setSuggestionList] = useState([]);
+    const [search, setSearch] = useState<string>("");
+    const [suggestionList, setSuggestionList] = useState<Array<string>>([]);
     const navigate = useNavigate();
     const [showSearchSuggestions, setShowSearchSuggestions] = useState(false);
     const dispatch = useDispatch();
-    const isSideBarOn = useSelector(store => store.app.isSideBarOn);
+    const isSideBarOn = useSelector((store: RootState)=> store.app.isSideBarOn);
     const dispatchToggleSideBar = () => {
-        dispatch(toggleSideBar());
+        dispatch(toggleSideBar({}));
     }
 
     useEffect(()=>{
@@ -88,7 +90,7 @@ const HeaderComponent = () => {
                 </Link>
                 <form className="col-span-7 grid grid-cols-8">
                     <input type="text" className="border col-span-6 px-2 rounded-l-full md:px-5 col-span-6 bg-white" placeholder="SEARCH" onChange={(e) => {setSearch(e.target.value)}} onFocus={()=>{setShowSearchSuggestions(true)}} onBlur={()=>{setShowSearchSuggestions(false)}}/>
-                    <button type="submit" className="border col-span-1 rounded-r-full w-10 hover:bg-gray-100" onClick={()=>{navigate("/search/" + search.replaceAll(" ","+"))}}><img src={searchIcon} alt="search" className="h-3 w-3 m-auto"></img></button>
+                    <button type="submit" className="border col-span-1 rounded-r-full w-10 hover:bg-gray-100" onClick={()=>{navigate("/search/" + search.split(" ").join("+"))}}><img src={searchIcon} alt="search" className="h-3 w-3 m-auto"></img></button>
                 </form>
                 <button className="flex items-center justify-center col-span-1" style={{"height": "3vh"}}>
                     <img alt="user-icon" src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" className="border p-1 rounded-full hover:bg-blue-50" style={{"height": "3vh", "width": "3vh"}}></img>
@@ -104,8 +106,8 @@ const HeaderComponent = () => {
                                             search.length <= 5 ? search : "..." + search.slice(search.length - 3, search.length) 
                                         } </div> :
                                     <div className="flex flex-col justify-start items-start">{
-                                    suggestionList.map((s)=>{
-                                            return <button className="text-gray-600 hover:font-bold" key={s} onClick={()=>{navigate("/search/" + s.replaceAll(" ","+"))}}>{s}</button>;
+                                    suggestionList.map((s: any)=>{
+                                            return <button className="text-gray-600 hover:font-bold" key={s} onClick={()=>{navigate("/search/" + s.split(" ").join("+"))}}>{s}</button>;
                                     })
                                     }</div>
                             } 

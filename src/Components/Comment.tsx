@@ -1,8 +1,13 @@
+import * as React from 'react';
 import likeIcon from "../public/like_15.png";
 import dislikeIcon from "../public/dislike_10.png";
 import { getTimeUploaded } from "../Utils/converterUtil";
+import { CommentType } from '../Utils/TypeDefinations';
 
-const Comment = ({comment, showButtons}) => {
+const Comment = ({comment, showButtons} : {
+    comment: CommentType,
+    showButtons: boolean
+}) => {
     return (
         <div className="flex px-5 py-3">
             <img alt="user-icon" src={comment.snippet.topLevelComment.snippet.authorProfileImageUrl} className="h-10 w-10 rounded-full mr-3"></img>

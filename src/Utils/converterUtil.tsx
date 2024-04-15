@@ -1,4 +1,4 @@
-export const getViews = (viewCnt) => {
+export const getViews = (viewCnt: number) => {
     if (viewCnt >= 1000000000) {
         return String(Math.floor(viewCnt / 1000000000)) + "B";
     }
@@ -10,9 +10,9 @@ export const getViews = (viewCnt) => {
     }
     return String(viewCnt);
 }
-export const getTimeUploaded = (dateUploaded) => {
-    const date = new Date(dateUploaded);
-    const currentDate = new Date();
+export const getTimeUploaded = (dateUploaded: string) => {
+    const date: number = new Date(dateUploaded).getTime();
+    const currentDate: number = new Date().getTime();
     const diffInMilliSeconds = currentDate - date;
 
     if (diffInMilliSeconds >=  (2 * 525600 * 60 * 1000)) {

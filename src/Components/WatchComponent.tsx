@@ -1,5 +1,5 @@
+import * as React from 'react';
 import { useState } from "react";
-import {Text} from 'react-native';
 import { useParams } from "react-router-dom";
 import likeIcon from "../public/like_15.png";
 import dislikeIcon from "../public/dislike_10.png";
@@ -9,18 +9,19 @@ import VideoCard from "./VideoCard";
 import VideoCardShimmer from "./VideoCardShimmer";
 import compressImg from "../public/expand-arrow.png";
 import expandImg from "../public/down.png";
+import { CommentType, VideoType } from '../Utils/TypeDefinations';
 
 
 const WatchComponent = () => {
     const videoId = useParams().id;
-    const [videoInfo, setVideoInfo] = useState(undefined);
-    const [videoComments, setVideoComments] = useState(undefined);
-    const [videoList, setVideoList] = useState([]);
+    const [videoInfo, setVideoInfo] = useState<VideoType>();
+    const [videoComments, setVideoComments] = useState<Array<CommentType>>([]);
+    const [videoList, setVideoList] = useState<Array<VideoType>>([]);
     const [showComments, setShowComments] = useState(false);
     const [showVideoRecommendations, setShowSearchSuggestions] = useState(true);
     
     const forceUpdate = () => {
-        window.location.reload(false);
+        window.location.reload();
     }
 
     useState(()=> {
@@ -43,7 +44,7 @@ const WatchComponent = () => {
             })
             .catch(()=>{console.log("Failed to load")}) 
             
-            fetch(process.env.REACT_APP_YOUTUBE_API_URL + "/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=48&regionCode=IN&key=" + process.env.REACT_APP_YOUTUBE_API_KEY)
+            fetch(process.env.REACT_APP_YOUTUBE_API_URL + "/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=48&regionCode=US&key=" + process.env.REACT_APP_YOUTUBE_API_KEY)
             .then((output) => {
                 return output.json();
             })
@@ -52,7 +53,7 @@ const WatchComponent = () => {
                 setVideoList(videoListFetched);
             })
             .catch(()=>{console.log("Failed to load")})
-    },[]);
+    });
 
     return (
         <div className="grid grid-cols-12 overflow-hidden overflow-auto no-scrollbar mt-[8vh]">
@@ -94,7 +95,7 @@ const WatchComponent = () => {
                         </div>
                 }
                 {
-                    (videoComments === undefined)? <div></div> : (!showComments) ? <div className="w-[95vw] bg-gray-200 rounded p-1 m-2 hover:bg-gray-300" onClick={() => {setShowComments(true); setShowSearchSuggestions(false);}}>
+                    (videoComments.length === 0)? <div></div> : (!showComments) ? <div className="w-[95vw] bg-gray-200 rounded p-1 m-2 hover:bg-gray-300" onClick={() => {setShowComments(true); setShowSearchSuggestions(false);}}>
                         <div className="flex items-center justify-between">
                             Comments:
                             <img src={expandImg} className="h-5 w-5" ></img> 
@@ -107,7 +108,7 @@ const WatchComponent = () => {
                         </div>
                             {
 
-                                videoComments.map((comment) => {
+                                videoComments.map((comment: CommentType) => {
                                     return <Comment comment={comment} showButtons={true} key={comment.id}></Comment>
                                 })
                             }
@@ -122,7 +123,7 @@ const WatchComponent = () => {
                         }
                     </div>: showVideoRecommendations ? <div>
                         {
-                            videoList.map((video, idx) => {
+                            videoList.map((video: VideoType, idx: number) => {
                                 if (video.id != videoInfo.id){
                                     return <div onClick={()=>{forceUpdate()}} key={idx}><VideoCard video={video}  /></div>
                                 }

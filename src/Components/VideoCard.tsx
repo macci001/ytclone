@@ -1,7 +1,9 @@
+import * as React from 'react';
 import { Link } from "react-router-dom";
 import { getViews, getTimeUploaded } from "../Utils/converterUtil";
+import { VideoType } from '../Utils/TypeDefinations';
 
-const VideoCard = ({video}) => {
+const VideoCard = ({video} : {video: VideoType}) => {
    
     return (<Link to={"/watch/" + video.id + "/#"} className="col-span-12 md:col-span-4">
         <div className="cursor-pointer grid grid-cols-8 m-1 p-2 rounded-xl">

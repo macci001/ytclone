@@ -1,9 +1,11 @@
+import * as React from 'react';
 import { useEffect, useState } from "react";
 import VideoCard from "./VideoCard";
 import VideoCardShimmer from "./VideoCardShimmer";
+import { VideoType } from '../Utils/TypeDefinations';
 
 const VideoComponent = () => {
-    const [videoList, setVideoList] = useState([]);
+    const [videoList, setVideoList] = useState<Array<VideoType>>([]);
 
     useEffect(function(){
         fetch(process.env.REACT_APP_YOUTUBE_API_URL + "/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=48&regionCode=US&key=" + process.env.REACT_APP_YOUTUBE_API_KEY)

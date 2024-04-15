@@ -1,5 +1,6 @@
 import ButtonComponent from "./ButtonComponent";
 import VideoComponent from "./VideoComponent";
+import * as React from 'react';
 
 const buttonList = [
     "Kapil",
@@ -34,7 +35,7 @@ const BodyComponent = () => {
                 <div className="overflow-auto no-scrollbar flex justtify-center items-center w-[100vw] h-[9vh] px-2">
                         {
                             buttonList.map((button, idx) => {
-                                return <ButtonComponent key={idx} field={button} className="w-20 px-5"/>
+                                return <ButtonComponent key={idx} field={button} />
                             })
                         }
                 </div>

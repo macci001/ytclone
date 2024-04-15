@@ -1,8 +1,9 @@
+import * as React from 'react';
 import { Link } from "react-router-dom";
 import { getTimeUploaded } from "../Utils/converterUtil";
+import { SearchedVideoType } from '../Utils/TypeDefinations';
 
-const VideoCardHorizontal = ({video}) => {
-   
+const VideoCardHorizontal = ({video}: {video: SearchedVideoType}) => {
     return (<Link to={"/watch/" + video.id.videoId} className="col-span-3" key={video.id.videoId}>
         <div className="cursor-pointer grid grid-cols-9 m-3 p-2 hover:shadow-md rounded-xl">
             <div className="col-span-9">
