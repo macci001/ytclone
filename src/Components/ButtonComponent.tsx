@@ -1,8 +1,11 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 
 const ButtonComponent = ({field} : {field: string}) => {
     return <>
-        <button className="border p-2 rounded-lg bg-gray-200 mx-1 my-1 w-5">{field}</button>
+        <Link to={"/search/" + field}>
+            <button className="border p-2 rounded-lg bg-gray-200 mx-1 my-0.5">{field}</button>
+        </Link>
     </>
 }
 

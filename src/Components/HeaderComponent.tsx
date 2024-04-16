@@ -48,7 +48,7 @@ const HeaderComponent = () => {
     
     return (
         <div className="col-span-12 bg-white opacity-100">
-            <div className="grid grid-cols-12 p-4 space-between fixed bg-white items-center w-[100vw] h-[8vh] md:h-[4vh]">
+            <div className="grid grid-cols-12 p-4 space-between fixed bg-white items-center w-[100vw] h-[8vh] md:h-[12vh]">
                 <div className="col-span-1">
                     {
                         !isSideBarOn ? 
@@ -86,14 +86,14 @@ const HeaderComponent = () => {
                     }
                 </div>
                 <Link to="/" className="col-span-3 md:col-span-2 bg-white ">
-                    <img alt="logo" src={ytLogo} className="h-auto w-full px-5 md:h-[3vh] w-[10vw]"></img>
+                    <img alt="logo" src={ytLogo} className="h-[3vw] w-[15vw] px-5 md:h-[3vw] w-[10vw]"></img>
                 </Link>
                 <form className="col-span-7 grid grid-cols-8">
-                    <input type="text" className="border col-span-6 px-2 rounded-l-full md:px-5 col-span-6 bg-white" placeholder="SEARCH" onChange={(e) => {setSearch(e.target.value)}} onFocus={()=>{setShowSearchSuggestions(true)}} onBlur={()=>{setShowSearchSuggestions(false)}}/>
-                    <button type="submit" className="border col-span-1 rounded-r-full w-10 hover:bg-gray-100" onClick={()=>{navigate("/search/" + search.split(" ").join("+"))}}><img src={searchIcon} alt="search" className="h-3 w-3 m-auto"></img></button>
+                    <input type="text" className="border col-span-6 px-2 rounded-l-full md:px-5 md:col-span-7 md:bg-white md:h-[3vw]" placeholder="SEARCH" onChange={(e) => {setSearch(e.target.value)}} onFocus={()=>{setShowSearchSuggestions(true)}} onBlur={()=>{setShowSearchSuggestions(false)}}/>
+                    <button type="submit" className="border col-span-1 rounded-r-full w-10 hover:bg-gray-100" onClick={()=>{if(search.length > 0){navigate("/search/" + search.split(" ").join("+"))}}}><img src={searchIcon} alt="search" className="h-3 w-3 m-auto"></img></button>
                 </form>
-                <button className="flex items-center justify-center col-span-1" style={{"height": "3vh"}}>
-                    <img alt="user-icon" src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" className="border p-1 rounded-full hover:bg-blue-50" style={{"height": "3vh", "width": "3vh"}}></img>
+                <button className="flex items-center justify-center col-span-1 h-[3vw]">
+                    <img alt="user-icon" src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" className="border p-1 rounded-full hover:bg-blue-50 h-[3vw] w-[3vw]"></img>
                 </button>
             </div>
             <div >

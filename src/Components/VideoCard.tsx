@@ -5,7 +5,7 @@ import { VideoType } from '../Utils/TypeDefinations';
 
 const VideoCard = ({video} : {video: VideoType}) => {
    
-    return (<Link to={"/watch/" + video.id + "/#"} className="col-span-12 md:col-span-4">
+    return (<Link to={"/watch/" + video.id + "/#"} className="col-span-12 md:col-span-4 content-center">
         <div className="cursor-pointer grid grid-cols-8 m-1 p-2 rounded-xl">
             <div className="col-span-8">
                 <img src={video?.snippet?.thumbnails?.standard?.url} alt="video-thumbnail" className="w-full h-auto rounded-xl"></img>

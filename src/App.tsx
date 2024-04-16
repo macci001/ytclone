@@ -9,7 +9,7 @@ function App() {
   return (
     <>
       <Provider store={store}>
-        <div className='flex relative z-0'>
+        <div className='flex relative z-0 w-[100vw] overflow-hidden'>
               <div>
                 <HeaderComponent/>
                 <Outlet/>
