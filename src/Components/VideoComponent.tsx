@@ -24,9 +24,19 @@ const VideoComponent = () => {
         <div className="flex overflow-auto no-scrollbar" style={{"height":"100vh"}}>
             {
                 videoList === undefined || videoList.length === 0 ?
-                    <div>
+                    <div className='grid grid-cols-9 w-[98vw] overflow-x-hidden'>
                         {
-                            [1,2,3,4,5].map((ele)=><VideoCardShimmer key={ele}/>)
+                            [1,2,3,4,5].map((ele)=><>
+                                <div className='col-span-9 md:col-span-3'>
+                                    <VideoCardShimmer key={ele*10 + 1}/>
+                                </div>
+                                <div className='col-span-9 md:col-span-3'>
+                                    <VideoCardShimmer key={ele*10 + 2}/>
+                                </div>
+                                <div className='col-span-9 md:col-span-3'>
+                                    <VideoCardShimmer key={ele*10 + 3}/>
+                                </div>
+                            </>)
                         }
                     </div> :
                     <div className="grid grid-cols-12 mx-3 w-[94vw]">

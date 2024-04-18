@@ -86,7 +86,7 @@ const HeaderComponent = () => {
                     }
                 </div>
                 <Link to="/" className="col-span-3 md:col-span-2 bg-white ">
-                    <img alt="logo" src={ytLogo} className="h-[3vw] w-[15vw] px-5 md:h-[3vw] w-[10vw]"></img>
+                    <div className="text-[2vw]">MyTube</div>
                 </Link>
                 <form className="col-span-7 grid grid-cols-8">
                     <input type="text" className="border col-span-6 px-2 rounded-l-full md:px-5 md:col-span-7 md:bg-white md:h-[3vw]" placeholder="SEARCH" onChange={(e) => {setSearch(e.target.value)}} onFocus={()=>{setShowSearchSuggestions(true)}} onBlur={()=>{setShowSearchSuggestions(false)}}/>
@@ -98,7 +98,7 @@ const HeaderComponent = () => {
             </div>
             <div >
                 {
-                        showSearchSuggestions == true ? (search === "" ? null : <div className="bg-white w-[100vw] h-[100vh] fixed top-[8vh] no-scroll">
+                        showSearchSuggestions == true ? (search === "" ? null : <div className="bg-white w-[100vw] h-[100vh] fixed top-[8vh] md:top-[12vh] no-scroll">
                         <div className="bg-white col-span-6 border p-3 rounded-lg w-[100vw] h-[100vh]">
                             {
                                 suggestionList && suggestionList.length === 0 ? 

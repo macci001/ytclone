@@ -31,7 +31,7 @@ const SearchBodyComponent = () => {
                 </div> : <div className="mt-[8vh]">
                     {
                         videoList.map((video: any) => {
-                            if (String(video.id.kind).includes("video"))return <VideoCardHorizontal video={video} key={video.id.videoId} />
+                            if (String(video.id.kind).includes("video"))return <div className='w-[97vw]'><VideoCardHorizontal video={video} key={video.id.videoId} /></div>
                         })
                     }
                 </div>
