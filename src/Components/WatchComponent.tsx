@@ -10,7 +10,7 @@ import compressImg from "../public/expand-arrow.png";
 import expandImg from "../public/down.png";
 import { CommentType, SearchedVideoType, VideoType } from '../Utils/TypeDefinations';
 import VideoCardHorizontal from './VideoCardHorizontal';
-
+import { useElementHeightEqualizer } from '../Utils/useElementHeightEqualizer';
 
 const WatchComponent = () => {
     const videoId = useParams().id;
@@ -20,18 +20,28 @@ const WatchComponent = () => {
     const [showComments, setShowComments] = useState(false);
     const [showVideoRecommendations, setShowSearchSuggestions] = useState(true);
     const [isMobile, setIsMobile] = useState(true);
+    const videoIframeRef = useRef(null);
+    const videoDetailsRef = useRef(null);
+    const videoCommentsRef = useRef(null);
+
+    useElementHeightEqualizer([
+        ["key1", videoIframeRef],
+        ["key1", videoDetailsRef],
+        ["key2", videoCommentsRef]        
+    ])
+
     useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth > 768) {
                 setIsMobile(false);  
             } 
         }
-        handleResize()
+        handleResize();
         window.addEventListener("resize", handleResize);
         return () => {
             window.removeEventListener("resize", handleResize);
         }
-    }, [])
+    })
     
     const forceUpdate = () => {
         window.location.reload();
@@ -73,10 +83,10 @@ const WatchComponent = () => {
     return (
         <div className="grid grid-cols-12 overflow-hidden mt-[8vh] md:mt-[12vh] w-[100vw]">
             <div className="p-2 col-span-12 md:col-span-7 grid grid-cols-12">
-                <div className="col-span-12" >
-                    <iframe allowFullScreen src={"https://www.youtube.com/embed/" + videoId + "?rel=0&autoplay=1"}  className="w-4/5 h-[45vw] md:h-[30vw]" ></iframe>
+                <div className="col-span-12">
+                    <iframe allowFullScreen src={"https://www.youtube.com/embed/" + videoId + "?rel=0&autoplay=1"}  className="w-4/5 h-[45vw] md:h-[30vw]" ref={videoIframeRef}></iframe>
                 </div>
-                <div className='col-span-12 grid grid-cols-12'>
+                <div className='col-span-12 grid grid-cols-12' ref={videoDetailsRef}>
                     {
                         (videoInfo === undefined) ? <div>
                                 <div className="w-4/5 h-[10vh] bg-gray-200 m-3"></div>
@@ -114,7 +124,7 @@ const WatchComponent = () => {
             </div>
             <div className='col-span-12 md:col-span-5 grid grid-cols-12'>
                 {
-                    (videoComments.length === 0)? <div></div> : (!showComments) ? <div className="w-full bg-gray-100 p-2 mt-2 rounded hover:bg-gray-300 col-span-12" onClick={() => {setShowComments(true); setShowSearchSuggestions(false);}}>
+                    (videoComments.length === 0)? <div></div> : (!showComments && isMobile) ? <div className="w-full bg-gray-100 p-2 mt-2 rounded hover:bg-gray-300 col-span-12" onClick={() => {setShowComments(true); setShowSearchSuggestions(false);}}>
                         <div className="flex items-center justify-between">
                             Comments:
                             <img src={expandImg} className="h-5 w-5" ></img> 
@@ -131,7 +141,7 @@ const WatchComponent = () => {
                                     return <Comment comment={comment} showButtons={true} key={comment.id}></Comment>
                                 })
                             }
-                    </div> : <div className='col-span-12 overflow-auto h-[80vh]' > 
+                    </div> : <div className='col-span-12 overflow-auto h-[80vh]' ref={videoCommentsRef} > 
                         <div className="flex items-center justify-between">
                             <p className="m-4 text-2xl font-semibold">Comments</p>
                         </div>
