@@ -35,7 +35,8 @@ export type VideoType = {
 
 export type SearchedVideoType = {
     id: {
-        videoId: string
+        videoId: string,
+        kind: string
     },
     snippet: {
         thumbnails: {

@@ -1,10 +1,8 @@
 import * as React from 'react';
 import { useEffect, useState } from "react";
-
 import { useParams } from "react-router-dom";
-import VideoCardShimmer from "./VideoCardShimmer";
-import VideoCardHorizontal from "./VideoCardHorizontal";
 import { SearchedVideoType } from '../Utils/TypeDefinations';
+import QueriedVideosComponent from './QueriedVideosComponent';
 
 const SearchBodyComponent = () => {
     const query = useParams().query;
@@ -17,25 +15,16 @@ const SearchBodyComponent = () => {
                 return response.json();
             })
             .then((json) => {
-                setVideoList(json.items);
+                const tempVideoList: Array<SearchedVideoType> = json.items;
+                setVideoList(tempVideoList.filter((video) => String(video.id.kind).includes("video")));
             })
     },[]);
 
     return (
         <div>
-            {
-                (videoList?.length === 0) ? <div className="mt-[8vh] w-[95vw] overflow-hidden">
-                    {
-                        [1,2,3,4,5].map((ele)=><VideoCardShimmer key={ele}/>)
-                    }
-                </div> : <div className="mt-[8vh]">
-                    {
-                        videoList.map((video: any) => {
-                            if (String(video.id.kind).includes("video"))return <div className='w-[97vw]'><VideoCardHorizontal video={video} key={video.id.videoId} /></div>
-                        })
-                    }
-                </div>
-            }
+            <div className="mt-[8vh] md:mt-[12vh]">
+                <QueriedVideosComponent videoList={videoList} shouldShowShimmer={videoList.length == 0} />
+            </div>
         </div>
     );
 }

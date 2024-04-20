@@ -32,7 +32,7 @@ const add = (key: string, value: Target) => {
 
 export type UseElementHeightEqualizerProps = Array<[string, Target]>;
 
-export const useElementHeightEqualizer = (refs: UseElementHeightEqualizerProps, dependencies?:[]) => {
+export const useElementHeightEqualizer = (refs: UseElementHeightEqualizerProps, dependencies?:any[]) => {
     useLayoutEffect(() => {
         const cleanups: (() => void)[] = [];
         refs.map(([key, element]) => {

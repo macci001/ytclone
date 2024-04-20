@@ -1,32 +1,7 @@
 import ButtonComponent from "./ButtonComponent";
 import VideoComponent from "./VideoComponent";
 import * as React from 'react';
-
-const buttonList = [
-    "Kapil",
-    "Startups",
-    "Entertainment",
-    "Infotainment",
-    "OpenSource",
-    "Git",
-    "Apple",
-    "Blender",
-    "Gadgets",
-    "Google",
-    "Facebook",
-    "India",
-    "Cricket",
-    "Voice",
-    "Sound",
-    "Blender",
-    "Gadgets",
-    "Google",
-    "Facebook",
-    "Youtube",
-    "Maps",
-    "India",
-    "Great"
-]
+import { buttonList } from "../consts/consts";
 
 const BodyComponent = () => {
     return (
