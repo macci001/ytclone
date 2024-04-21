@@ -2,12 +2,19 @@ import * as React from "react";
 import { SearchedVideoType } from "../Utils/TypeDefinations";
 import VideoCardShimmer from "./VideoCardShimmer";
 import VideoCardHorizontal from "./VideoCardHorizontal";
+import errorMark from "../public/errorMark.png";
 
 const QueriedVideosComponent = ({videoList, shouldShowShimmer}: {
-    videoList: Array<SearchedVideoType>,
+    videoList: Array<SearchedVideoType> | undefined,
     shouldShowShimmer: boolean
 }) => {
-    if (shouldShowShimmer) {
+    if(videoList==undefined) {
+        return <div className="bg-red-200 p-[2vw] w-[100vw] shadow-inner flex justify-center items-center">
+            <img src={errorMark} className="w-[2vw] h-[2vw] m-[1vw]"></img>
+            Failed To Load Videos
+        </div>
+    }
+    if (shouldShowShimmer || videoList.length == 0) {
         return (
             <div className="mt-[8vh] md:mt-[12vh] w-full overflow-hidden">
                 {

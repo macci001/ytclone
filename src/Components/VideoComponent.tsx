@@ -21,7 +21,7 @@ const VideoComponent = () => {
             }) 
     },[]);
     return (
-        <div className="flex overflow-auto no-scrollbar" style={{"height":"100vh"}}>
+        <div className="flex overflow-y-auto no-scrollbar" style={{"height":"100vh"}}>
             {
                 videoList === undefined || videoList.length === 0 ?
                     <div className='grid grid-cols-9 w-[98vw] overflow-x-hidden'>
@@ -39,7 +39,7 @@ const VideoComponent = () => {
                             </>)
                         }
                     </div> :
-                    <div className="grid grid-cols-12 w-[94vw]">
+                    <div className="grid grid-cols-12 w-[94vw] overflow-x-hidden no-scrollbar">
                         {
                             videoList.map((video) => {
                                 return <VideoCard video={video} key={video.id} />

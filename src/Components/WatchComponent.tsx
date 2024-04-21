@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
-import VideoCardShimmer from "./VideoCardShimmer";
 import { CommentType, SearchedVideoType, VideoType } from '../Utils/TypeDefinations';
-import VideoCardHorizontal from './VideoCardHorizontal';
 import { useElementHeightEqualizer } from '../Utils/useElementHeightEqualizer';
 import VideoDescriptionComponent from './VideoDescriptionComponent';
 import CommentSection from './CommentSection';
@@ -13,7 +11,7 @@ const WatchComponent = () => {
     const videoId = useParams().id;
     const [videoInfo, setVideoInfo] = useState<VideoType>();
     const [videoComments, setVideoComments] = useState<Array<CommentType>>([]);
-    const [videoList, setVideoList] = useState<Array<SearchedVideoType>>([]);
+    const [videoList, setVideoList] = useState<Array<SearchedVideoType> | undefined>([]);
     const [showComments, setShowComments] = useState(false);
     const [showVideoRecommendations, setShowSearchSuggestions] = useState(true);
     const [isMobile, setIsMobile] = useState(true);
@@ -44,10 +42,6 @@ const WatchComponent = () => {
             window.removeEventListener("resize", handleResize);
         }
     })
-    
-    const forceUpdate = () => {
-        window.location.reload();
-    }
 
     useState(()=> {
         fetch(process.env.REACT_APP_YOUTUBE_API_URL + "/videos?part=snippet%2CcontentDetails%2Cstatistics&id=" + videoId + "&key=" + process.env.REACT_APP_YOUTUBE_API_KEY)
@@ -63,13 +57,16 @@ const WatchComponent = () => {
                 if(query.length > 20) {
                     query = query.substring(0, 20);
                 } 
-                fetch(process.env.REACT_APP_YOUTUBE_API_URL + "/search?part=snippet&maxResults=25&q=" + query + "&key=" + process.env.REACT_APP_YOUTUBE_API_KEY)
+                fetch(process.env.REACT_APP_YOUTUBE_API_URL + "/search?part=snet&maxResults=25&q=" + query + "&key=" + process.env.REACT_APP_YOUTUBE_API_KEY)
                 .then((output) => {
                     return output.json();
                 })
                 .then((list) => {
                     const videoListFetched = list.items;
                     setVideoList(videoListFetched);
+                })
+                .catch(() => {
+                    setVideoList(undefined);
                 })
             })
             .catch(()=>{console.log("Failed to load")})
@@ -105,7 +102,7 @@ const WatchComponent = () => {
             </div>
             <div className="col-span-11 flex flex-col items-center w-full">
                 {
-                    !showVideoRecommendations ? null : <QueriedVideosComponent videoList={videoList} shouldShowShimmer={videoInfo === undefined || videoComments === undefined || videoList.length == 0} /> 
+                    !showVideoRecommendations ? null : <QueriedVideosComponent videoList={videoList} shouldShowShimmer={videoInfo === undefined || videoComments === undefined} /> 
                 }
             </div>
         </div>

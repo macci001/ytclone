@@ -7,7 +7,7 @@ import QueriedVideosComponent from './QueriedVideosComponent';
 const SearchBodyComponent = () => {
     const query = useParams().query;
     const URL = process.env.REACT_APP_YOUTUBE_API_URL + "/search?part=snippet&maxResults=25&q=" + query + "&key=" + process.env.REACT_APP_YOUTUBE_API_KEY;
-    const [videoList, setVideoList] = useState<Array<SearchedVideoType>>([]);
+    const [videoList, setVideoList] = useState<Array<SearchedVideoType> | undefined>([]);
 
     useEffect(()=>{
         fetch(URL)
@@ -18,12 +18,16 @@ const SearchBodyComponent = () => {
                 const tempVideoList: Array<SearchedVideoType> = json.items;
                 setVideoList(tempVideoList.filter((video) => String(video.id.kind).includes("video")));
             })
+            .catch(() => {
+                console.log("Failed to load");
+                setVideoList(undefined);
+            })
     },[]);
 
     return (
         <div>
             <div className="mt-[8vh] md:mt-[12vh]">
-                <QueriedVideosComponent videoList={videoList} shouldShowShimmer={videoList.length == 0} />
+                <QueriedVideosComponent videoList={videoList} shouldShowShimmer={false} />
             </div>
         </div>
     );
