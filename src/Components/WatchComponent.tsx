@@ -95,7 +95,7 @@ const WatchComponent = () => {
                     <VideoDescriptionComponent videoInfo={videoInfo} />
                 </div>
             </div>
-            <div className='col-span-12 md:col-span-5' ref={videoCommentsRef}>
+            <div className='col-span-12 md:col-span-4 overflow-auto' ref={videoCommentsRef}>
                 <CommentSection 
                     videoComments={videoComments} 
                     showComments={showComments} 
@@ -103,7 +103,7 @@ const WatchComponent = () => {
                     setShowComments={setShowComments}
                     setShowSearchSuggestions={setShowSearchSuggestions} />
             </div>
-            <div className="col-span-12 flex flex-col items-center w-full">
+            <div className="col-span-11 flex flex-col items-center w-full">
                 {
                     !showVideoRecommendations ? null : <QueriedVideosComponent videoList={videoList} shouldShowShimmer={videoInfo === undefined || videoComments === undefined || videoList.length == 0} /> 
                 }

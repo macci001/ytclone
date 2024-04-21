@@ -39,7 +39,7 @@ const VideoComponent = () => {
                             </>)
                         }
                     </div> :
-                    <div className="grid grid-cols-12 mx-3 w-[94vw]">
+                    <div className="grid grid-cols-12 w-[94vw]">
                         {
                             videoList.map((video) => {
                                 return <VideoCard video={video} key={video.id} />

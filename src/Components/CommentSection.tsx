@@ -40,7 +40,7 @@ const CommentSection = ({videoComments, showComments, isMobile, setShowComments,
         </div>)
     }
 
-    return (<div className='overflow-auto'  > 
+    return (<div className='overflow-auto overflow-hidden'  > 
         <div className="flex items-center justify-between">
             <p className="m-4 text-2xl font-semibold">Comments</p>
         </div>
