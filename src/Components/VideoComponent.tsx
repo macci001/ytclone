@@ -3,9 +3,10 @@ import { useEffect, useState } from "react";
 import VideoCard from "./VideoCard";
 import VideoCardShimmer from "./VideoCardShimmer";
 import { VideoType } from '../Utils/TypeDefinations';
+import errorMark from "../public/errorMark.png";
 
 const VideoComponent = () => {
-    const [videoList, setVideoList] = useState<Array<VideoType>>([]);
+    const [videoList, setVideoList] = useState<Array<VideoType> | undefined>([]);
 
     useEffect(function(){
         fetch(process.env.REACT_APP_YOUTUBE_API_URL + "/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=48&regionCode=US&key=" + process.env.REACT_APP_YOUTUBE_API_KEY)
@@ -18,12 +19,16 @@ const VideoComponent = () => {
             })
             .catch((e) => {
                 console.log("Failed to load");
+                setVideoList(undefined);
             }) 
     },[]);
     return (
         <div className="flex overflow-y-auto no-scrollbar" style={{"height":"100vh"}}>
             {
-                videoList === undefined || videoList.length === 0 ?
+                videoList === undefined ?  <div className="bg-red-200 p-[2vw] w-[97vw] h-[8vw] m-0 shadow-inner flex justify-center items-center">
+                    <img src={errorMark} className="w-[2vw] h-[2vw] m-[1vw]"></img>
+                    Failed To Load Videos
+                </div> : videoList.length === 0 ?
                     <div className='grid grid-cols-9 w-[98vw] overflow-x-hidden'>
                         {
                             [1,2,3,4,5].map((ele)=><>
