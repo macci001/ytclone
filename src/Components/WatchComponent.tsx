@@ -57,7 +57,7 @@ const WatchComponent = () => {
                 if(query.length > 20) {
                     query = query.substring(0, 20);
                 } 
-                fetch(process.env.REACT_APP_YOUTUBE_API_URL + "/search?part=snet&maxResults=25&q=" + query + "&key=" + process.env.REACT_APP_YOUTUBE_API_KEY)
+                fetch(process.env.REACT_APP_YOUTUBE_API_URL + "/search?part=snippet&maxResults=25&q=" + query + "&key=" + process.env.REACT_APP_YOUTUBE_API_KEY)
                 .then((output) => {
                     return output.json();
                 })
