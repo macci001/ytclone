@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { useEffect, useState } from "react";
 import VideoCard from "./VideoCard";
-import VideoCardShimmer from "./VideoCardShimmer";
 import { VideoType } from '../Utils/TypeDefinations';
 import errorMark from "../public/errorMark.png";
+import VideoComponentShimmer from './VideoComponentShimmer';
 
 const VideoComponent = () => {
     const [videoList, setVideoList] = useState<Array<VideoType> | undefined>([]);
@@ -29,21 +29,7 @@ const VideoComponent = () => {
                     <img src={errorMark} className="w-[2vw] h-[2vw] m-[1vw]"></img>
                     Failed To Load Videos
                 </div> : videoList.length === 0 ?
-                    <div className='grid grid-cols-9 w-[98vw] overflow-x-hidden'>
-                        {
-                            [1,2,3,4,5].map((ele)=><>
-                                <div className='col-span-9 md:col-span-3'>
-                                    <VideoCardShimmer key={ele*10 + 1}/>
-                                </div>
-                                <div className='col-span-9 md:col-span-3'>
-                                    <VideoCardShimmer key={ele*10 + 2}/>
-                                </div>
-                                <div className='col-span-9 md:col-span-3'>
-                                    <VideoCardShimmer key={ele*10 + 3}/>
-                                </div>
-                            </>)
-                        }
-                    </div> :
+                    <VideoComponentShimmer />:
                     <div className="grid grid-cols-12 w-[94vw] overflow-x-hidden no-scrollbar">
                         {
                             videoList.map((video) => {

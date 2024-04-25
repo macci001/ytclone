@@ -16,7 +16,7 @@ const Comment = ({comment, showButtons} : {
                     <p className="mr-2">{comment.snippet.topLevelComment.snippet.authorDisplayName}</p>
                     <p className="ml-2 text-xs  text-gray-500">{getTimeUploaded(comment.snippet.topLevelComment.snippet.publishedAt)}</p>
                 </div>
-                <div className="break-all">
+                <div className="break-all w-full">
                     <div>{String(comment.snippet.topLevelComment.snippet.textOriginal)}</div>
                 </div>
                 {

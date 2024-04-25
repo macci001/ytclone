@@ -92,7 +92,7 @@ const WatchComponent = () => {
                     <VideoDescriptionComponent videoInfo={videoInfo} />
                 </div>
             </div>
-            <div className='col-span-12 md:col-span-4 overflow-auto' ref={videoCommentsRef}>
+            <div className='col-span-12 md:col-span-5 overflow-auto m-[1vw]' ref={videoCommentsRef}>
                 <CommentSection 
                     videoComments={videoComments} 
                     showComments={showComments} 

@@ -4,7 +4,7 @@ import { getTimeUploaded } from "../Utils/converterUtil";
 import { SearchedVideoType } from '../Utils/TypeDefinations';
 
 const VideoCardHorizontal = ({video}: {video: SearchedVideoType}) => {
-    return (<Link to={"/watch/" + video.id.videoId} className="col-span-3" key={video.id.videoId}>
+    return (<Link to={"/watch/" + video.id.videoId + "/#"} className="col-span-3" key={video.id.videoId}>
         <div className="cursor-pointer grid grid-cols-9 m-3 p-8 w-full shadow-inner hover:shadow:lg rounded-xl">
             <div className="col-span-9 md:col-span-3">
                 <img src={video?.snippet?.thumbnails?.high?.url} alt="video-thumbnail" className="w-full h-auto rounded-xl"></img>
